@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>氣球模擬風險測驗</title>
+	<style type="text/css">
+
+
+		#canvas-wrapper
+		{
+			text-align: center;
+			/*max-height: 100px;*/
+			height: 100px;
+			/*margin: 200px auto 0 auto;*/
+			margin: 200px;
+			width: 950px;
+			/*max-width: 950px;*/
+			color: #FFF;
+
+			/*margin-left: auto;
+			margin-right: auto;*/
+		}
+		#font{
+			background: #000000;
+			color: #FFF;
+			text-align: center;
+			margin: 0；
+		}
+	</style>
+
+	<script type="text/javascript">
+
+		var blowPlus_var = 0;
+		var total_var = 0;
+
+		var random_score = 0;
+
+		function randomExplosion(){
+			random_score = Math.floor(Math.random()*10)+1; //回傳1~10
+
+		}
+
+		function showRandomNum(){
+			document.getElementById("random_text").value = random_score;
+		}
+
+		
+		function blowPlus(){	
+			blowPlus_var = blowPlus_var + 1;
+			document.getElementById("current_score").value = blowPlus_var;
+			
+
+			total_var = blowPlus_var;
+			//document.getElementById("total_score").value = total_var;
+
+			
+			if(blowPlus_var == random_score){
+				document.getElementById("alert").innerHTML = "你的氣球已經炸了!!";
+				alert("BOOM!!")
+			}
+		}
+
+		function totalSum(){
+			document.getElementById("total_score").value = total_var;
+			alert("你得到總分為 " + total_var + " 分!!")
+			document.getElementById("alert").innerHTML = "你的總分: " + total_var;
+		}
+
+	</script>
+
+
+</head>
+
+<body onload="randomExplosion(), showRandomNum()"> <!-- bgcolor="#000000"; -->
+
+	<div id="canvas-wrapper">
+		<canvas id="canvas" width="500" height="500">
+			Sorry! Your browser doesn't support the canvas element.
+		</canvas>
+		<script type="text/javascript" src="script/color-0.1.3.min.js"></script>
+		<script type="text/javascript" src="script/canvas-balloon.js"></script>
+	</div>
+
+	<div>
+		<input type="button" id="sum" value="結算" style="margin:50px;width:120px;height:40px;font-size:20px;" onclick="totalSum()">
+		<input type="button" id="blow" value="充氣" style="margin:50px;width:120px;height:40px;font-size:20px;" onclick="blowPlus()">
+	</div>
+	
+	<div style="position: relative;">
+		<!--<lebel type="text" id="font" name="font1" value="測驗總分:" readonly="readonly">
+			<input type="text" id="font" name="font2" value="目前得分:" readonly="readonly">-->
+		<label id="recent_score_label">目前得分:</label>
+		<input type="text" name="RecentScore" readonly="readonly" id="current_score">
+		<label id="total_score_label">測驗總分:</label>
+		<input type="text" name="TotalScore" readonly="readonly" id="total_score">
+
+	</div>
+
+	<label id="randomExplosion_label">本次隨機數字</label>
+	<input type="text" name="randomExplosion_text" readonly="readonly" id="random_text">
+
+	<p id="alert_p">Alert:</p>
+	<p id="alert"></p>
+
+
+
+</body>
+</html>
