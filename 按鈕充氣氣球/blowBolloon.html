@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<style type="text/css">
+		@import url(BART_css.css);
+	</style>
+
+	<script type="text/javascript"></script>
+
+	<script type="text/javascript">
+
+		var random_score = 0;
+
+		var blowPlus_var = 0;
+		var balloon1;
+
+		//random產生每次的充氣上限值
+		function randomExplosion(){
+			random_score = Math.floor(Math.random()*10)+1; //回傳1~10
+
+		}
+
+		//顯示當次random值
+		function showRandomNum(){
+			document.getElementById("boom_num").value = random_score;
+
+		}
+
+		function blowPlus(){	
+			blowPlus_var = blowPlus_var + 1;
+			document.getElementById("current_score").value = blowPlus_var;
+			
+			if(blowPlus_var == random_score){
+				document.getElementById("alert_p").innerHTML = "Alert: 你的氣球已經炸了!!";
+				alert("BOOM!!")
+			}else{
+				var balloon1 = new CANVASBALLOON.Balloon('canvas', 550, 500 - (blowPlus_var*30), 40 + (blowPlus_var*20), 'rgb(255, 0, 0)');
+				balloon1.draw();
+			}
+
+		}
+	</script>
+
+</head>
+<body onload="randomExplosion(), showRandomNum()">
+	<div>
+		<input type="button" id="blow" value="充氣" style="margin:50px;width:120px;height:40px;font-size:20px;" onclick="blowPlus()">
+		<label id="recent_score_label">目前得分:</label>
+		<input type="text" name="RecentScore" readonly="readonly" id="current_score">
+
+		<label id="boom_label">爆炸上限:</label>
+		<input type="text" name="BoomNum" readonly="readonly" id="boom_num">
+	</div>
+
+	<div>
+		<!-- Alert訊息 -->
+		<p id="alert_p">Alert: </p>
+		
+	</div>
+
+	<div id="canvas-wrapper">
+		<canvas id="canvas" width="1500" height="1500">
+			Sorry! Your browser doesn't support the canvas element.
+		</canvas>
+
+		<script type="text/javascript" src="color-0.1.3.min.js"></script>
+		<script type="text/javascript" src="canvas-balloon.js"></script>
+		
+	</div>
+
+</body>
+</html>
