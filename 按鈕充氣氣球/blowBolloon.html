@@ -35,8 +35,37 @@
 			
 			if(blowPlus_var == random_score){
 				document.getElementById("alert_p").innerHTML = "Alert: 你的氣球已經炸了!!";
-				alert("BOOM!!")
+				//alert("BOOM!!")
+
+				var clearCanvas = document.getElementById("canvas").getContext("2d");
+				clearCanvas.clearRect(0, 0, canvas.width, canvas.height);
+
+				var imgBoom = new Image();
+				imgBoom.src = "boom.jpg";
+
+				var temp_blowPlus_var = blowPlus_var;
+
+				imgBoom.onload = function(){
+					var canvasBoom = document.getElementById("canvas").getContext("2d");
+					canvasBoom.drawImage(this,550 - (40 + temp_blowPlus_var*20) ,(500 - (temp_blowPlus_var*30)) - (40 + temp_blowPlus_var*20), (40 + temp_blowPlus_var*20)*2, (40 + temp_blowPlus_var*20)*2);
+				}
+				/*
+					drawImage(this, x, y,Ix,Iy) 圖片大小為Ix*Iy
+					x : Cx - (Ix/2)
+					y : Cy - (Iy/2)
+					Ix : C半徑*2
+					Iy : C半徑*2
+				*/
+
+				randomExplosion();
+				blowPlus_var = 0;
+				showRandomNum();
 			}else{
+				document.getElementById("alert_p").innerHTML = "Alert: ";
+
+				var clearCanvas = document.getElementById("canvas").getContext("2d");
+				clearCanvas.clearRect(0, 0, canvas.width, canvas.height);
+
 				var balloon1 = new CANVASBALLOON.Balloon('canvas', 550, 500 - (blowPlus_var*30), 40 + (blowPlus_var*20), 'rgb(255, 0, 0)');
 				balloon1.draw();
 			}
