@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>連續按按鈕的時間差</title>
+
+	<!-- firstTime & lastTime -->
+	<script type="text/javascript">
+		
+		var firstTime_var;
+		var lastTime_var;
+		var diffTime_var;
+
+		var fHour;
+		var fMin;
+		var fSec;
+		var fMsec;
+
+		var lHour;
+		var lMin;
+		var lSec;
+		var lMsec;
+
+		var diffHour;
+		var diffMin;
+		var diffSec;
+		var diffMsec;
+	
+		function showFirstTime(){
+			fHour = new Date().getHours();
+			fMin = new Date().getMinutes()
+			fSec = new Date().getSeconds()
+			fMsec = new Date().getMilliseconds()
+
+			document.getElementById("firstTime_text").value = fHour + "時" + fMin + "分" + fSec + "秒" + fMsec + "毫秒"; //1毫秒=10^-3秒
+
+			firstTime_var = fHour*3600000 + fMin*60000 + fSec*1000 + fMsec*1;
+ 
+		}
+
+		function showLastTime(){
+			lHour = new Date().getHours();
+			lMin = new Date().getMinutes();
+			lSec = new Date().getSeconds();
+			lMsec = new Date().getMilliseconds();
+
+			document.getElementById("lastTime_text").value = lHour + "時" + lMin + "分" + lSec + "秒" + lMsec + "毫秒";
+
+			lastTime_var = lHour*3600000 + lMin*60000 + lSec*1000 + lMsec*1;
+
+			diffTime_var = lastTime_var - firstTime_var; //毫秒
+
+			var temp_diffTime = 0;
+
+			temp_diffTime = diffTime_var;
+
+			//時
+			if(parseInt(temp_diffTime/3600000) >= 1){
+				diffHour = parseInt(temp_diffTime/3600000);
+				temp_diffTime = temp_diffTime - (diffHour*3600000);
+				
+			}else{
+				diffHour = 0;
+				temp_diffTime = temp_diffTime;
+			}
+
+			//分
+			if(parseInt(temp_diffTime/60000) >= 1){
+				diffMin = parseInt(temp_diffTime/60000);
+				temp_diffTime = temp_diffTime - (diffMin*60000);
+
+			}else{
+				diffMin = 0;
+				temp_diffTime = temp_diffTime;
+			}
+
+			//秒
+			if(parseInt(temp_diffTime/1000) >= 1){
+				diffSec = parseInt(temp_diffTime/1000);
+				diffMsec = temp_diffTime - (diffSec*1000); //毫秒
+
+			}else{
+				diffSec = 0;
+				diffMsec = temp_diffTime; //毫秒
+			}
+
+			document.getElementById("diffTime_text").value = diffHour + "時" + diffMin + "分" + diffSec + "秒" + diffMsec + "毫秒";
+
+		}
+
+	</script>
+
+	<script type="text/javascript">
+
+		var clickPlus_var = 0;
+
+		var now_clickButton_var;
+		var before_clickButton_var;
+		var diff_clickButton_var;
+
+		var click_nowHour;
+		var click_nowMin;
+		var click_nowSec;
+		var click_nowMsec;
+
+		var click_beforeHour;
+		var click_beforeMin;
+		var click_beforeSec;
+		var click_beforeMsec;
+
+		var click_diffTime;
+
+		var now_clickButton_Msec;
+		var before_clickButton_Msec;
+
+		var diff_clickHour;
+		var diff_clickMin;
+		var diff_clickSec;
+		var diff_clickMsec;
+
+		function clickPlus(){	
+
+			click_nowHour = new Date().getHours();
+			click_nowMin = new Date().getMinutes();
+			click_nowSec = new Date().getSeconds();
+			click_nowMsec = new Date().getMilliseconds();
+
+			clickPlus_var = clickPlus_var + 1;
+			document.getElementById("clickTimes_text").value = clickPlus_var;
+
+			if(clickPlus_var == 1){
+				now_clickButton_var = click_nowHour + "時" + click_nowMin + "分" + click_nowSec + "秒" + click_nowMsec + "毫秒";
+
+				document.getElementById("clickButton_nowTime_text").value = now_clickButton_var;
+
+				before_clickButton_var = now_clickButton_var;
+
+				diff_clickButton_var = "0時0分0秒0毫秒";
+				document.getElementById("clickButton_diff_text").value = diff_clickButton_var;
+
+				click_beforeHour = click_nowHour;
+				click_beforeMin = click_nowMin;
+				click_beforeSec = click_nowSec;
+				click_beforeMsec = click_nowMsec;
+
+			}else if(clickPlus_var > 1){
+				now_clickButton_var = click_nowHour + "時" + click_nowMin + "分" + click_nowSec + "秒" + click_nowMsec + "毫秒";
+
+				document.getElementById("clickButton_nowTime_text").value = now_clickButton_var;
+				document.getElementById("clickButton_beforeTime_text").value = before_clickButton_var;
+
+				before_clickButton_var = now_clickButton_var;
+
+				now_clickButton_Msec = click_nowHour*3600000 + click_nowMin*60000 + click_nowSec*1000 + click_nowMsec*1;
+				before_clickButton_Msec = click_beforeHour*3600000 + click_beforeMin*60000 + click_beforeSec*1000 + click_beforeMsec*1;
+
+				click_diffTime = now_clickButton_Msec - before_clickButton_Msec;
+
+				var temp_diffTime = 0;
+
+				temp_diffTime = click_diffTime;
+
+				//時
+				if(parseInt(temp_diffTime/3600000) >= 1){
+					diff_clickHour = parseInt(temp_diffTime/3600000);
+					temp_diffTime = temp_diffTime - (diff_clickHour*3600000);
+					
+				}else{
+					diff_clickHour = 0;
+					temp_diffTime = temp_diffTime;
+				}
+
+				//分
+				if(parseInt(temp_diffTime/60000) >= 1){
+					diff_clickMin = parseInt(temp_diffTime/60000);
+					temp_diffTime = temp_diffTime - (diff_clickMin*60000);
+
+				}else{
+					diff_clickMin = 0;
+					temp_diffTime = temp_diffTime;
+				}
+
+				//秒
+				if(parseInt(temp_diffTime/1000) >= 1){
+					diff_clickSec = parseInt(temp_diffTime/1000);
+					diff_clickMsec = temp_diffTime - (diff_clickSec*1000); //毫秒
+
+				}else{
+					diff_clickSec = 0;
+					diff_clickMsec = temp_diffTime; //毫秒
+				}
+
+				/*diff_clickButton_var = diff_clickHour + "時" + diff_clickMin + "分" + diff_clickSec + "秒" + diff_clickMsec + "毫秒";*/
+				document.getElementById("clickButton_diff_text").value = diff_clickHour + "時" + diff_clickMin + "分" + diff_clickSec + "秒" + diff_clickMsec + "毫秒";
+
+				click_beforeHour = click_nowHour;
+				click_beforeMin = click_nowMin;
+				click_beforeSec = click_nowSec;
+				click_beforeMsec = click_nowMsec;
+
+			}
+
+		}
+	</script>
+
+</head>
+<body>
+	<div>
+		<input type="button" id="firstTime_botton" value="firstTime" style="margin:50px;width:120px;height:40px;font-size:20px;" onclick="showFirstTime()">
+		<input type="button" id="lastTime_botton" value="lastTime" style="margin:50px;width:120px;height:40px;font-size:20px;" onclick="showLastTime()">
+	</div>
+	
+	<div>
+		<label id="show_firstTime">firstTime:</label>
+		<input type="text" name="firstTime" readonly="readonly" id="firstTime_text">
+		<label id="show_lastTime">lastTime:</label>
+		<input type="text" name="lastTime" readonly="readonly" id="lastTime_text">
+
+		<label id="show_diffTime">diffTime:</label>
+		<input type="text" name="diffTime" readonly="readonly" id="diffTime_text">
+	</div>
+
+	<div>
+		<input type="button" id="clickButton_botton" value="clickButton" style="margin:50px;width:120px;height:40px;font-size:20px;" onclick="clickPlus()">
+	</div>
+
+	<div>
+		<label id="show_clickTimes">clickTimes:</label>
+		<input type="text" name="clickTimes" readonly="readonly" id="clickTimes_text">
+		<label id="show_nowTime">clickButton_nowTime:</label>
+		<input type="text" name="clickButton_nowTime" readonly="readonly" id="clickButton_nowTime_text">
+		<label id="show_beforeTime">clickButton_beforeTime:</label>
+		<input type="text" name="clickButton_beforeTime" readonly="readonly" id="clickButton_beforeTime_text">
+		<label id="show_diff">clickButton_diff:</label>
+		<input type="text" name="clickButton_diff" readonly="readonly" id="clickButton_diff_text">
+	</div>
+</body>
+</html>
